@@ -1,32 +1,35 @@
-document
-.getElementById("btnIngresar")
-.addEventListener("click", login);
+document.getElementById("btnIngresar").addEventListener("click", login);
 
-async function login(){
+async function login() {
 
-    const email =
-    document.getElementById("usuario").value;
+    try {
 
-    const password =
-    document.getElementById("password").value;
+        const email = document.getElementById("usuario").value.trim();
+        const password = document.getElementById("password").value;
 
-    const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
+        console.log("Iniciando login...");
 
-        email: email,
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+        });
 
-        password: password
+        console.log("DATA:", data);
+        console.log("ERROR:", error);
 
-    });
+        if (error) {
+            alert(error.message);
+            return;
+        }
 
-    if(error){
+        console.log("Login correcto");
 
-        alert(error.message);
+        alert("Login correcto. Voy a abrir principal.html");
 
-        return;
+        window.location.href = "principal.html";
 
+    } catch (e) {
+        console.error("ERROR GENERAL:", e);
+        alert(e.message);
     }
-
-    
 }
-
