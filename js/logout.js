@@ -1,5 +1,4 @@
-async function salir(){
-
-   await supabaseClient.auth.signOut();
-
-    window.location="index.html";
+async function salir() {
+    await supabaseClient.auth.signOut();
+    window.location.href = "index.html";
+}
